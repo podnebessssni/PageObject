@@ -12,17 +12,13 @@ public class TransferPage {
     private SelenideElement sendButton = $("[data-test-id='action-transfer']");
     private SelenideElement cancelButton = $("[data-test-id='action-cancel']");
 
-    public DashboardPage transfer(int id,DataHelper.Card card, int amount){
-        DashboardPage dashboard = new DashboardPage();
-        dashboard.getRefillButton().get(id).click();
+    public DashboardPage transfer(DataHelper.Card card, int amount){
         sumField.setValue(String.valueOf(amount));
         fromField.setValue(card.getNumber());
         sendButton.click();
         return new DashboardPage();
     }
-    public DashboardPage transferCancell(int id,DataHelper.Card card, int amount){
-        DashboardPage dashboard = new DashboardPage();
-        dashboard.getRefillButton().get(id).click();
+    public DashboardPage transferCancell(DataHelper.Card card, int amount){
         sumField.setValue(String.valueOf(amount));
         fromField.setValue(card.getNumber());
         cancelButton.click();

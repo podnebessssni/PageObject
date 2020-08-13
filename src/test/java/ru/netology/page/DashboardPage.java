@@ -3,6 +3,7 @@ package ru.netology.page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 
+import com.codeborne.selenide.SelenideElement;
 import lombok.val;
 
 import static com.codeborne.selenide.Selenide.$$;
@@ -15,9 +16,13 @@ public class DashboardPage {
   private ElementsCollection refillButton = $$("[data-test-id='action-deposit']");
 
 
-  public ElementsCollection getRefillButton() {
-    return refillButton;
+  public SelenideElement getFirstCardRefillButton() {
+    return refillButton.first();
   }
+  public SelenideElement getSecondCardRefillButton() {
+    return refillButton.last();
+  }
+
   public int getFirstCardBalance(){
     return getCardBalance("01");
   }
