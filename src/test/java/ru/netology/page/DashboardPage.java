@@ -18,6 +18,12 @@ public class DashboardPage {
   public ElementsCollection getRefillButton() {
     return refillButton;
   }
+  public int getFirstCardBalance(){
+    return getCardBalance("01");
+  }
+  public int getSecondCardBalance(){
+    return getCardBalance("02");
+  }
 
   public int getCardBalance(String id) {
     val text = cards.findBy(Condition.text(id)).text();

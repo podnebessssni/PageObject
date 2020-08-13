@@ -15,7 +15,6 @@ import static com.codeborne.selenide.Selenide.open;
 class MoneyTransferTest {
   DashboardPage dashboard = new DashboardPage();
   TransferPage transferMoney = new TransferPage();
-  int amount = 100 + (int) (Math.random() * 5000);
 
   @BeforeEach
   void setUp(){
@@ -30,34 +29,34 @@ class MoneyTransferTest {
   @Test
   void shouldTransferMoneyFromSecondToFirstCard() {
     int amount = 100 + (int) (Math.random() * 5000);
-    val cardBalanceFirst =  dashboard.getCardBalance("01");
-    val cardBalanceSecond =  dashboard.getCardBalance("02");
+    val cardBalanceFirst =  dashboard.getFirstCardBalance();
+    val cardBalanceSecond =  dashboard.getSecondCardBalance();
     val cardInfo = DataHelper.Card.getSecondCardInfo();
     transferMoney.transfer(0,cardInfo,amount);
     val cardBalanceAfterSendFirst = DataHelper.Card.cardBalanceAfterGetMoney(cardBalanceFirst,amount);
     val cardBalanceAfterSendSecond = DataHelper.Card.cardBalanceAfterSendMoney(cardBalanceSecond,amount);
-    assertEquals(cardBalanceAfterSendFirst, dashboard.getCardBalance("01"));
-    assertEquals(cardBalanceAfterSendSecond, dashboard.getCardBalance("02"));
+    assertEquals(cardBalanceAfterSendFirst, dashboard.getFirstCardBalance());
+    assertEquals(cardBalanceAfterSendSecond, dashboard.getSecondCardBalance());
   }
 
   @Test
   void shouldTransferMoneyFromFirstToSecondCard() {
     int amount = 100 + (int) (Math.random() * 5000);
-    val cardBalanceFirst =  dashboard.getCardBalance("01");
-    val cardBalanceSecond =  dashboard.getCardBalance("02");
+    val cardBalanceFirst =  dashboard.getFirstCardBalance();
+    val cardBalanceSecond =  dashboard.getSecondCardBalance();
     val cardInfo = DataHelper.Card.getFirstCardInfo();
     transferMoney.transfer(1,cardInfo,amount);
     val cardBalanceAfterSendFirst = DataHelper.Card.cardBalanceAfterSendMoney(cardBalanceFirst,amount);
     val cardBalanceAfterSendSecond = DataHelper.Card.cardBalanceAfterGetMoney(cardBalanceSecond,amount);
-    assertEquals(cardBalanceAfterSendFirst, dashboard.getCardBalance("01"));
-    assertEquals(cardBalanceAfterSendSecond, dashboard.getCardBalance("02"));
+    assertEquals(cardBalanceAfterSendFirst, dashboard.getFirstCardBalance());
+    assertEquals(cardBalanceAfterSendSecond, dashboard.getSecondCardBalance());
   }
 
   @Test
   void shouldReturnToTheDashboardPageIfClickCancelButton() {
     int amount = 100 + (int) (Math.random() * 5000);
-    val cardBalanceFirst =  dashboard.getCardBalance("01");
-    val cardBalanceSecond =  dashboard.getCardBalance("02");
+    val cardBalanceFirst =  dashboard.getFirstCardBalance();
+    val cardBalanceSecond =  dashboard.getSecondCardBalance();
     val cardInfo = DataHelper.Card.getFirstCardInfo();
     transferMoney.transferCancell(1,cardInfo,amount);
     dashboard.returnToDashboard().compareTo("  Личный кабинет");
